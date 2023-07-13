@@ -1,0 +1,1156 @@
+{
+    "a_galaxy_workflow": "true",
+    "annotation": "",
+    "format-version": "0.1",
+    "name": "TBProfiler MultiSample",
+    "steps": {
+        "0": {
+            "annotation": "",
+            "content_id": null,
+            "errors": null,
+            "id": 0,
+            "input_connections": {},
+            "inputs": [
+                {
+                    "description": "",
+                    "name": "sequence_reads_paired"
+                }
+            ],
+            "label": "sequence_reads_paired",
+            "name": "Input dataset collection",
+            "outputs": [],
+            "position": {
+                "bottom": 366.6999969482422,
+                "height": 82.19999694824219,
+                "left": 64,
+                "right": 264,
+                "top": 284.5,
+                "width": 200,
+                "x": 64,
+                "y": 284.5
+            },
+            "tool_id": null,
+            "tool_state": "{\"optional\": false, \"collection_type\": \"list:paired\"}",
+            "tool_version": null,
+            "type": "data_collection_input",
+            "uuid": "def663ea-19ae-48ab-9212-e1f220322236",
+            "workflow_outputs": [
+                {
+                    "label": null,
+                    "output_name": "output",
+                    "uuid": "c2cf3154-5be9-4f23-8d73-1e8e94995115"
+                }
+            ]
+        },
+        "1": {
+            "annotation": "",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/iuc/fastp/fastp/0.23.2+galaxy0",
+            "errors": null,
+            "id": 1,
+            "input_connections": {
+                "single_paired|paired_input": {
+                    "id": 0,
+                    "output_name": "output"
+                }
+            },
+            "inputs": [],
+            "label": null,
+            "name": "fastp",
+            "outputs": [
+                {
+                    "name": "output_paired_coll",
+                    "type": "input"
+                },
+                {
+                    "name": "report_html",
+                    "type": "html"
+                },
+                {
+                    "name": "report_json",
+                    "type": "json"
+                }
+            ],
+            "position": {
+                "bottom": 603.6999969482422,
+                "height": 215.1999969482422,
+                "left": 63,
+                "right": 263,
+                "top": 388.5,
+                "width": 200,
+                "x": 63,
+                "y": 388.5
+            },
+            "post_job_actions": {
+                "HideDatasetActionoutput_paired_coll": {
+                    "action_arguments": {},
+                    "action_type": "HideDatasetAction",
+                    "output_name": "output_paired_coll"
+                },
+                "RenameDatasetActionreport_json": {
+                    "action_arguments": {
+                        "newname": "fastp.json"
+                    },
+                    "action_type": "RenameDatasetAction",
+                    "output_name": "report_json"
+                }
+            },
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/iuc/fastp/fastp/0.23.2+galaxy0",
+            "tool_shed_repository": {
+                "changeset_revision": "65b93b623c77",
+                "name": "fastp",
+                "owner": "iuc",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"filter_options\": {\"quality_filtering_options\": {\"disable_quality_filtering\": \"false\", \"qualified_quality_phred\": \"\", \"unqualified_percent_limit\": \"\", \"n_base_limit\": \"\"}, \"length_filtering_options\": {\"disable_length_filtering\": \"false\", \"length_required\": \"\", \"length_limit\": \"\"}, \"low_complexity_filter\": {\"enable_low_complexity_filter\": \"false\", \"complexity_threshold\": \"\"}}, \"output_options\": {\"report_html\": \"true\", \"report_json\": \"true\"}, \"overrepresented_sequence_analysis\": {\"overrepresentation_analysis\": \"false\", \"overrepresentation_sampling\": \"\"}, \"read_mod_options\": {\"polyg_tail_trimming\": {\"trimming_select\": \"\", \"__current_case__\": 1, \"poly_g_min_len\": \"\"}, \"polyx_tail_trimming\": {\"polyx_trimming_select\": \"\", \"__current_case__\": 1}, \"umi_processing\": {\"umi\": \"false\", \"umi_loc\": \"\", \"umi_len\": \"\", \"umi_prefix\": \"\"}, \"cutting_by_quality_options\": {\"cut_by_quality5\": \"false\", \"cut_by_quality3\": \"true\", \"cut_window_size\": \"\", \"cut_mean_quality\": \"\"}, \"base_correction_options\": {\"correction\": \"false\"}}, \"single_paired\": {\"single_paired_selector\": \"paired_collection\", \"__current_case__\": 2, \"paired_input\": {\"__class__\": \"ConnectedValue\"}, \"adapter_trimming_options\": {\"disable_adapter_trimming\": \"false\", \"adapter_sequence1\": \"\", \"adapter_sequence2\": \"\"}, \"global_trimming_options\": {\"trim_front1\": \"\", \"trim_tail1\": \"\", \"trim_front2\": \"\", \"trim_tail2\": \"\"}}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "0.23.2+galaxy0",
+            "type": "tool",
+            "uuid": "a6aa9263-8cdd-4202-9ff3-a44b4c0b9a97",
+            "workflow_outputs": [
+                {
+                    "label": null,
+                    "output_name": "report_json",
+                    "uuid": "4e3a12d9-41df-447b-9637-5ae5dc4d9ceb"
+                },
+                {
+                    "label": "fastp on input dataset(s): HTML report",
+                    "output_name": "report_html",
+                    "uuid": "31b9e32d-4f64-4cb8-9b4c-edca54b6e84b"
+                }
+            ]
+        },
+        "2": {
+            "annotation": "",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/iuc/tbprofiler/tb_profiler_profile/4.4.1+galaxy0",
+            "errors": null,
+            "id": 2,
+            "input_connections": {
+                "fastq_or_bam|fastq_collection": {
+                    "id": 1,
+                    "output_name": "output_paired_coll"
+                }
+            },
+            "inputs": [],
+            "label": null,
+            "name": "TB-Profiler Profile",
+            "outputs": [
+                {
+                    "name": "results_json",
+                    "type": "json"
+                },
+                {
+                    "name": "output_vcf",
+                    "type": "vcf"
+                },
+                {
+                    "name": "output_bam",
+                    "type": "bam"
+                },
+                {
+                    "name": "output_txt",
+                    "type": "txt"
+                }
+            ],
+            "position": {
+                "bottom": 549.8999938964844,
+                "height": 286.3999938964844,
+                "left": 320.5,
+                "right": 520.5,
+                "top": 263.5,
+                "width": 200,
+                "x": 320.5,
+                "y": 263.5
+            },
+            "post_job_actions": {
+                "DeleteIntermediatesActionresults_json": {
+                    "action_arguments": {},
+                    "action_type": "DeleteIntermediatesAction",
+                    "output_name": "results_json"
+                },
+                "RenameDatasetActionoutput_bam": {
+                    "action_arguments": {
+                        "newname": "tbprofiler_alignment.bam"
+                    },
+                    "action_type": "RenameDatasetAction",
+                    "output_name": "output_bam"
+                },
+                "RenameDatasetActionoutput_txt": {
+                    "action_arguments": {
+                        "newname": "tbprofiler_report.txt"
+                    },
+                    "action_type": "RenameDatasetAction",
+                    "output_name": "output_txt"
+                },
+                "RenameDatasetActionoutput_vcf": {
+                    "action_arguments": {
+                        "newname": "tbprofiler_variants.vcf"
+                    },
+                    "action_type": "RenameDatasetAction",
+                    "output_name": "output_vcf"
+                },
+                "RenameDatasetActionresults_json": {
+                    "action_arguments": {
+                        "newname": "tbprofiler_results.json"
+                    },
+                    "action_type": "RenameDatasetAction",
+                    "output_name": "results_json"
+                }
+            },
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/iuc/tbprofiler/tb_profiler_profile/4.4.1+galaxy0",
+            "tool_shed_repository": {
+                "changeset_revision": "2c68b0c38785",
+                "name": "tbprofiler",
+                "owner": "iuc",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"advanced\": {\"options\": \"yes\", \"__current_case__\": 1, \"mapper\": \"bwa\", \"caller\": \"freebayes\", \"min_depth\": \"10\", \"min_allele_freq\": \"0.1\", \"min_allele_freq_reporting\": \"0.1\"}, \"fastq_or_bam\": {\"input_select\": \"paired_collection_fastq\", \"__current_case__\": 1, \"fastq_collection\": {\"__class__\": \"ConnectedValue\"}}, \"output_format\": \"txt\", \"platform\": \"illumina\", \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "4.4.1+galaxy0",
+            "type": "tool",
+            "uuid": "ea99961a-33a8-488c-b97c-ed2b2a7d37cc",
+            "workflow_outputs": [
+                {
+                    "label": null,
+                    "output_name": "output_txt",
+                    "uuid": "ff7f4d90-5433-43ba-84c1-cdf5a3f7aea5"
+                },
+                {
+                    "label": null,
+                    "output_name": "results_json",
+                    "uuid": "019aaacc-dd31-4ea6-b9e5-56f283f98def"
+                },
+                {
+                    "label": null,
+                    "output_name": "output_vcf",
+                    "uuid": "b46b1a97-2075-448a-945e-6fe448e055cd"
+                },
+                {
+                    "label": null,
+                    "output_name": "output_bam",
+                    "uuid": "ff194451-7b8d-476b-8015-1a7ddab2049d"
+                }
+            ]
+        },
+        "3": {
+            "annotation": "",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/public-health-bioinformatics/fastp_json_to_tabular/fastp_json_to_tabular/0.1.0",
+            "errors": null,
+            "id": 3,
+            "input_connections": {
+                "report": {
+                    "id": 1,
+                    "output_name": "report_json"
+                }
+            },
+            "inputs": [],
+            "label": null,
+            "name": "Convert fastp json report to tabular",
+            "outputs": [
+                {
+                    "name": "output",
+                    "type": "tabular"
+                }
+            ],
+            "position": {
+                "bottom": 691.1000061035156,
+                "height": 113.60000610351562,
+                "left": 321,
+                "right": 521,
+                "top": 577.5,
+                "width": 200,
+                "x": 321,
+                "y": 577.5
+            },
+            "post_job_actions": {
+                "HideDatasetActionoutput": {
+                    "action_arguments": {},
+                    "action_type": "HideDatasetAction",
+                    "output_name": "output"
+                }
+            },
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/public-health-bioinformatics/fastp_json_to_tabular/fastp_json_to_tabular/0.1.0",
+            "tool_shed_repository": {
+                "changeset_revision": "091a2fb2e7ad",
+                "name": "fastp_json_to_tabular",
+                "owner": "public-health-bioinformatics",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"report\": {\"__class__\": \"ConnectedValue\"}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "0.1.0",
+            "type": "tool",
+            "uuid": "7de548d3-c482-4ec3-9bff-693b03265643",
+            "workflow_outputs": []
+        },
+        "4": {
+            "annotation": "",
+            "content_id": "testtoolshed.g2.bx.psu.edu/repos/dfornika/tbprofiler_json_to_tabular/tbprofiler_json_to_tabular/0.1.0+galaxy2",
+            "errors": null,
+            "id": 4,
+            "input_connections": {
+                "report": {
+                    "id": 2,
+                    "output_name": "results_json"
+                }
+            },
+            "inputs": [],
+            "label": null,
+            "name": "Convert tbprofiler json report to tabular",
+            "outputs": [
+                {
+                    "name": "qc",
+                    "type": "tabular"
+                },
+                {
+                    "name": "gene_coverage",
+                    "type": "tabular"
+                },
+                {
+                    "name": "missing_positions",
+                    "type": "tabular"
+                },
+                {
+                    "name": "resistance_variants",
+                    "type": "tabular"
+                },
+                {
+                    "name": "other_variants",
+                    "type": "tabular"
+                },
+                {
+                    "name": "analysis_metadata",
+                    "type": "tabular"
+                }
+            ],
+            "position": {
+                "bottom": 558.2000122070312,
+                "height": 347.20001220703125,
+                "left": 582,
+                "right": 782,
+                "top": 211,
+                "width": 200,
+                "x": 582,
+                "y": 211
+            },
+            "post_job_actions": {
+                "HideDatasetActionanalysis_metadata": {
+                    "action_arguments": {},
+                    "action_type": "HideDatasetAction",
+                    "output_name": "analysis_metadata"
+                },
+                "HideDatasetActiongene_coverage": {
+                    "action_arguments": {},
+                    "action_type": "HideDatasetAction",
+                    "output_name": "gene_coverage"
+                },
+                "HideDatasetActionmissing_positions": {
+                    "action_arguments": {},
+                    "action_type": "HideDatasetAction",
+                    "output_name": "missing_positions"
+                },
+                "HideDatasetActionother_variants": {
+                    "action_arguments": {},
+                    "action_type": "HideDatasetAction",
+                    "output_name": "other_variants"
+                },
+                "HideDatasetActionqc": {
+                    "action_arguments": {},
+                    "action_type": "HideDatasetAction",
+                    "output_name": "qc"
+                },
+                "HideDatasetActionresistance_variants": {
+                    "action_arguments": {},
+                    "action_type": "HideDatasetAction",
+                    "output_name": "resistance_variants"
+                },
+                "RenameDatasetActionanalysis_metadata": {
+                    "action_arguments": {
+                        "newname": "tbprofiler_analysis_metadata.tsv"
+                    },
+                    "action_type": "RenameDatasetAction",
+                    "output_name": "analysis_metadata"
+                },
+                "RenameDatasetActiongene_coverage": {
+                    "action_arguments": {
+                        "newname": "tbprofiler_gene_coverage.tsv"
+                    },
+                    "action_type": "RenameDatasetAction",
+                    "output_name": "gene_coverage"
+                },
+                "RenameDatasetActionmissing_positions": {
+                    "action_arguments": {
+                        "newname": "tbprofiler_missing_positions.tsv"
+                    },
+                    "action_type": "RenameDatasetAction",
+                    "output_name": "missing_positions"
+                },
+                "RenameDatasetActionother_variants": {
+                    "action_arguments": {
+                        "newname": "tbprofiler_other_variants.tsv"
+                    },
+                    "action_type": "RenameDatasetAction",
+                    "output_name": "other_variants"
+                },
+                "RenameDatasetActionqc": {
+                    "action_arguments": {
+                        "newname": "tbprofiler_qc.tsv"
+                    },
+                    "action_type": "RenameDatasetAction",
+                    "output_name": "qc"
+                },
+                "RenameDatasetActionresistance_variants": {
+                    "action_arguments": {
+                        "newname": "tbprofiler_resistance_variants.tsv"
+                    },
+                    "action_type": "RenameDatasetAction",
+                    "output_name": "resistance_variants"
+                }
+            },
+            "tool_id": "testtoolshed.g2.bx.psu.edu/repos/dfornika/tbprofiler_json_to_tabular/tbprofiler_json_to_tabular/0.1.0+galaxy2",
+            "tool_shed_repository": {
+                "changeset_revision": "90d6f1633abc",
+                "name": "tbprofiler_json_to_tabular",
+                "owner": "dfornika",
+                "tool_shed": "testtoolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"report\": {\"__class__\": \"ConnectedValue\"}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "0.1.0+galaxy2",
+            "type": "tool",
+            "uuid": "2f2ca8f5-f96e-4649-a1ad-538ca56ca0c5",
+            "workflow_outputs": []
+        },
+        "5": {
+            "annotation": "",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/nml/combine_tabular_collection/combine/0.1",
+            "errors": null,
+            "id": 5,
+            "input_connections": {
+                "texts": {
+                    "id": 3,
+                    "output_name": "output"
+                }
+            },
+            "inputs": [],
+            "label": "fastp combined",
+            "name": "Combine",
+            "outputs": [
+                {
+                    "name": "output",
+                    "type": "tabular"
+                }
+            ],
+            "position": {
+                "bottom": 692.6999969482422,
+                "height": 93.19999694824219,
+                "left": 584,
+                "right": 784,
+                "top": 599.5,
+                "width": 200,
+                "x": 584,
+                "y": 599.5
+            },
+            "post_job_actions": {
+                "RenameDatasetActionoutput": {
+                    "action_arguments": {
+                        "newname": "fastp.tsv"
+                    },
+                    "action_type": "RenameDatasetAction",
+                    "output_name": "output"
+                }
+            },
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/nml/combine_tabular_collection/combine/0.1",
+            "tool_shed_repository": {
+                "changeset_revision": "b815081988b5",
+                "name": "combine_tabular_collection",
+                "owner": "nml",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"texts\": {\"__class__\": \"ConnectedValue\"}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "0.1",
+            "type": "tool",
+            "uuid": "af838f23-b5cc-40c2-a277-560db087d575",
+            "workflow_outputs": [
+                {
+                    "label": null,
+                    "output_name": "output",
+                    "uuid": "ced62923-f904-407b-84fd-4a650c071d39"
+                }
+            ]
+        },
+        "6": {
+            "annotation": "",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/mvdbeek/add_input_name_as_column/addName/0.2.0",
+            "errors": null,
+            "id": 6,
+            "input_connections": {
+                "input": {
+                    "id": 4,
+                    "output_name": "qc"
+                }
+            },
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool Add input name as column",
+                    "name": "input"
+                }
+            ],
+            "label": null,
+            "name": "Add input name as column",
+            "outputs": [
+                {
+                    "name": "output",
+                    "type": "tabular"
+                }
+            ],
+            "position": {
+                "bottom": 257.1000061035156,
+                "height": 113.60000610351562,
+                "left": 859,
+                "right": 1059,
+                "top": 143.5,
+                "width": 200,
+                "x": 859,
+                "y": 143.5
+            },
+            "post_job_actions": {
+                "HideDatasetActionoutput": {
+                    "action_arguments": {},
+                    "action_type": "HideDatasetAction",
+                    "output_name": "output"
+                }
+            },
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/mvdbeek/add_input_name_as_column/addName/0.2.0",
+            "tool_shed_repository": {
+                "changeset_revision": "3284b72eef56",
+                "name": "add_input_name_as_column",
+                "owner": "mvdbeek",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"header\": {\"contains_header\": \"yes\", \"__current_case__\": 0, \"colname\": \"sample\"}, \"input\": {\"__class__\": \"RuntimeValue\"}, \"prepend\": \"false\", \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "0.2.0",
+            "type": "tool",
+            "uuid": "34bae87b-e232-4e14-83bb-08f8a21515e5",
+            "workflow_outputs": []
+        },
+        "7": {
+            "annotation": "",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/mvdbeek/add_input_name_as_column/addName/0.2.0",
+            "errors": null,
+            "id": 7,
+            "input_connections": {
+                "input": {
+                    "id": 4,
+                    "output_name": "gene_coverage"
+                }
+            },
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool Add input name as column",
+                    "name": "input"
+                }
+            ],
+            "label": null,
+            "name": "Add input name as column",
+            "outputs": [
+                {
+                    "name": "output",
+                    "type": "tabular"
+                }
+            ],
+            "position": {
+                "bottom": 382.1000061035156,
+                "height": 113.60000610351562,
+                "left": 857,
+                "right": 1057,
+                "top": 268.5,
+                "width": 200,
+                "x": 857,
+                "y": 268.5
+            },
+            "post_job_actions": {
+                "HideDatasetActionoutput": {
+                    "action_arguments": {},
+                    "action_type": "HideDatasetAction",
+                    "output_name": "output"
+                }
+            },
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/mvdbeek/add_input_name_as_column/addName/0.2.0",
+            "tool_shed_repository": {
+                "changeset_revision": "3284b72eef56",
+                "name": "add_input_name_as_column",
+                "owner": "mvdbeek",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"header\": {\"contains_header\": \"yes\", \"__current_case__\": 0, \"colname\": \"sample\"}, \"input\": {\"__class__\": \"RuntimeValue\"}, \"prepend\": \"false\", \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "0.2.0",
+            "type": "tool",
+            "uuid": "748006e2-7f5a-47c8-b01e-db7985f03466",
+            "workflow_outputs": []
+        },
+        "8": {
+            "annotation": "",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/mvdbeek/add_input_name_as_column/addName/0.2.0",
+            "errors": null,
+            "id": 8,
+            "input_connections": {
+                "input": {
+                    "id": 4,
+                    "output_name": "missing_positions"
+                }
+            },
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool Add input name as column",
+                    "name": "input"
+                }
+            ],
+            "label": null,
+            "name": "Add input name as column",
+            "outputs": [
+                {
+                    "name": "output",
+                    "type": "tabular"
+                }
+            ],
+            "position": {
+                "bottom": 507.1000061035156,
+                "height": 113.60000610351562,
+                "left": 857,
+                "right": 1057,
+                "top": 393.5,
+                "width": 200,
+                "x": 857,
+                "y": 393.5
+            },
+            "post_job_actions": {
+                "HideDatasetActionoutput": {
+                    "action_arguments": {},
+                    "action_type": "HideDatasetAction",
+                    "output_name": "output"
+                }
+            },
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/mvdbeek/add_input_name_as_column/addName/0.2.0",
+            "tool_shed_repository": {
+                "changeset_revision": "3284b72eef56",
+                "name": "add_input_name_as_column",
+                "owner": "mvdbeek",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"header\": {\"contains_header\": \"yes\", \"__current_case__\": 0, \"colname\": \"sample\"}, \"input\": {\"__class__\": \"RuntimeValue\"}, \"prepend\": \"false\", \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "0.2.0",
+            "type": "tool",
+            "uuid": "d9fe05e1-096d-4c1f-811a-c53fe99c3bfe",
+            "workflow_outputs": []
+        },
+        "9": {
+            "annotation": "",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/mvdbeek/add_input_name_as_column/addName/0.2.0",
+            "errors": null,
+            "id": 9,
+            "input_connections": {
+                "input": {
+                    "id": 4,
+                    "output_name": "resistance_variants"
+                }
+            },
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool Add input name as column",
+                    "name": "input"
+                }
+            ],
+            "label": null,
+            "name": "Add input name as column",
+            "outputs": [
+                {
+                    "name": "output",
+                    "type": "tabular"
+                }
+            ],
+            "position": {
+                "bottom": 630.1000061035156,
+                "height": 113.60000610351562,
+                "left": 859,
+                "right": 1059,
+                "top": 516.5,
+                "width": 200,
+                "x": 859,
+                "y": 516.5
+            },
+            "post_job_actions": {
+                "HideDatasetActionoutput": {
+                    "action_arguments": {},
+                    "action_type": "HideDatasetAction",
+                    "output_name": "output"
+                }
+            },
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/mvdbeek/add_input_name_as_column/addName/0.2.0",
+            "tool_shed_repository": {
+                "changeset_revision": "3284b72eef56",
+                "name": "add_input_name_as_column",
+                "owner": "mvdbeek",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"header\": {\"contains_header\": \"yes\", \"__current_case__\": 0, \"colname\": \"sample\"}, \"input\": {\"__class__\": \"RuntimeValue\"}, \"prepend\": \"false\", \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "0.2.0",
+            "type": "tool",
+            "uuid": "38f5ffdf-6597-46a5-b85f-a2763d18008f",
+            "workflow_outputs": []
+        },
+        "10": {
+            "annotation": "",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/mvdbeek/add_input_name_as_column/addName/0.2.0",
+            "errors": null,
+            "id": 10,
+            "input_connections": {
+                "input": {
+                    "id": 4,
+                    "output_name": "other_variants"
+                }
+            },
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool Add input name as column",
+                    "name": "input"
+                }
+            ],
+            "label": null,
+            "name": "Add input name as column",
+            "outputs": [
+                {
+                    "name": "output",
+                    "type": "tabular"
+                }
+            ],
+            "position": {
+                "bottom": 756.1000061035156,
+                "height": 113.60000610351562,
+                "left": 860,
+                "right": 1060,
+                "top": 642.5,
+                "width": 200,
+                "x": 860,
+                "y": 642.5
+            },
+            "post_job_actions": {
+                "HideDatasetActionoutput": {
+                    "action_arguments": {},
+                    "action_type": "HideDatasetAction",
+                    "output_name": "output"
+                }
+            },
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/mvdbeek/add_input_name_as_column/addName/0.2.0",
+            "tool_shed_repository": {
+                "changeset_revision": "3284b72eef56",
+                "name": "add_input_name_as_column",
+                "owner": "mvdbeek",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"header\": {\"contains_header\": \"yes\", \"__current_case__\": 0, \"colname\": \"sample\"}, \"input\": {\"__class__\": \"RuntimeValue\"}, \"prepend\": \"false\", \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "0.2.0",
+            "type": "tool",
+            "uuid": "77aef6c6-2537-4a4b-8091-5d27053688da",
+            "workflow_outputs": []
+        },
+        "11": {
+            "annotation": "",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/mvdbeek/add_input_name_as_column/addName/0.2.0",
+            "errors": null,
+            "id": 11,
+            "input_connections": {
+                "input": {
+                    "id": 4,
+                    "output_name": "analysis_metadata"
+                }
+            },
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool Add input name as column",
+                    "name": "input"
+                }
+            ],
+            "label": null,
+            "name": "Add input name as column",
+            "outputs": [
+                {
+                    "name": "output",
+                    "type": "tabular"
+                }
+            ],
+            "position": {
+                "bottom": 884.1000061035156,
+                "height": 113.60000610351562,
+                "left": 860,
+                "right": 1060,
+                "top": 770.5,
+                "width": 200,
+                "x": 860,
+                "y": 770.5
+            },
+            "post_job_actions": {
+                "HideDatasetActionoutput": {
+                    "action_arguments": {},
+                    "action_type": "HideDatasetAction",
+                    "output_name": "output"
+                }
+            },
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/mvdbeek/add_input_name_as_column/addName/0.2.0",
+            "tool_shed_repository": {
+                "changeset_revision": "3284b72eef56",
+                "name": "add_input_name_as_column",
+                "owner": "mvdbeek",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"header\": {\"contains_header\": \"yes\", \"__current_case__\": 0, \"colname\": \"sample\"}, \"input\": {\"__class__\": \"RuntimeValue\"}, \"prepend\": \"false\", \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "0.2.0",
+            "type": "tool",
+            "uuid": "6df13f6f-7e05-499e-9c16-1c333be518d3",
+            "workflow_outputs": []
+        },
+        "12": {
+            "annotation": "",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/nml/combine_tabular_collection/combine/0.1",
+            "errors": null,
+            "id": 12,
+            "input_connections": {
+                "texts": {
+                    "id": 6,
+                    "output_name": "output"
+                }
+            },
+            "inputs": [],
+            "label": "TBProfiler QC",
+            "name": "Combine",
+            "outputs": [
+                {
+                    "name": "output",
+                    "type": "tabular"
+                }
+            ],
+            "position": {
+                "bottom": 230.6999969482422,
+                "height": 93.19999694824219,
+                "left": 1095,
+                "right": 1295,
+                "top": 137.5,
+                "width": 200,
+                "x": 1095,
+                "y": 137.5
+            },
+            "post_job_actions": {
+                "RenameDatasetActionoutput": {
+                    "action_arguments": {
+                        "newname": "tbprofiler_qc.tsv"
+                    },
+                    "action_type": "RenameDatasetAction",
+                    "output_name": "output"
+                }
+            },
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/nml/combine_tabular_collection/combine/0.1",
+            "tool_shed_repository": {
+                "changeset_revision": "b815081988b5",
+                "name": "combine_tabular_collection",
+                "owner": "nml",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"texts\": {\"__class__\": \"ConnectedValue\"}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "0.1",
+            "type": "tool",
+            "uuid": "d0ff679f-e7e8-4528-ac6e-c18c1ee40ec8",
+            "workflow_outputs": [
+                {
+                    "label": null,
+                    "output_name": "output",
+                    "uuid": "2a3b95f0-39ff-4a86-ac05-27e991a6d3e8"
+                }
+            ]
+        },
+        "13": {
+            "annotation": "",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/nml/combine_tabular_collection/combine/0.1",
+            "errors": null,
+            "id": 13,
+            "input_connections": {
+                "texts": {
+                    "id": 7,
+                    "output_name": "output"
+                }
+            },
+            "inputs": [
+                {
+                    "description": "runtime parameter for tool Combine",
+                    "name": "texts"
+                }
+            ],
+            "label": "TBProfiler Gene Coverage",
+            "name": "Combine",
+            "outputs": [
+                {
+                    "name": "output",
+                    "type": "tabular"
+                }
+            ],
+            "position": {
+                "bottom": 383.1000061035156,
+                "height": 113.60000610351562,
+                "left": 1092,
+                "right": 1292,
+                "top": 269.5,
+                "width": 200,
+                "x": 1092,
+                "y": 269.5
+            },
+            "post_job_actions": {},
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/nml/combine_tabular_collection/combine/0.1",
+            "tool_shed_repository": {
+                "changeset_revision": "b815081988b5",
+                "name": "combine_tabular_collection",
+                "owner": "nml",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"texts\": {\"__class__\": \"RuntimeValue\"}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "0.1",
+            "type": "tool",
+            "uuid": "b232be4d-63c7-4019-b6a0-21443a5867db",
+            "workflow_outputs": [
+                {
+                    "label": null,
+                    "output_name": "output",
+                    "uuid": "0cc37a83-d327-46d0-9adb-e6a86d0968a4"
+                }
+            ]
+        },
+        "14": {
+            "annotation": "",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/nml/combine_tabular_collection/combine/0.1",
+            "errors": null,
+            "id": 14,
+            "input_connections": {
+                "texts": {
+                    "id": 8,
+                    "output_name": "output"
+                }
+            },
+            "inputs": [],
+            "label": "TBProfiler Missing Positions",
+            "name": "Combine",
+            "outputs": [
+                {
+                    "name": "output",
+                    "type": "tabular"
+                }
+            ],
+            "position": {
+                "bottom": 509.1000061035156,
+                "height": 113.60000610351562,
+                "left": 1093,
+                "right": 1293,
+                "top": 395.5,
+                "width": 200,
+                "x": 1093,
+                "y": 395.5
+            },
+            "post_job_actions": {
+                "RenameDatasetActionoutput": {
+                    "action_arguments": {
+                        "newname": "tbprofiler_missing_positions.tsv"
+                    },
+                    "action_type": "RenameDatasetAction",
+                    "output_name": "output"
+                }
+            },
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/nml/combine_tabular_collection/combine/0.1",
+            "tool_shed_repository": {
+                "changeset_revision": "b815081988b5",
+                "name": "combine_tabular_collection",
+                "owner": "nml",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"texts\": {\"__class__\": \"ConnectedValue\"}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "0.1",
+            "type": "tool",
+            "uuid": "3a3d3a40-1086-466f-8ad4-29e931ef9a81",
+            "workflow_outputs": [
+                {
+                    "label": null,
+                    "output_name": "output",
+                    "uuid": "66e2990f-c433-4550-a202-af5aaaa0f323"
+                }
+            ]
+        },
+        "15": {
+            "annotation": "",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/nml/combine_tabular_collection/combine/0.1",
+            "errors": null,
+            "id": 15,
+            "input_connections": {
+                "texts": {
+                    "id": 9,
+                    "output_name": "output"
+                }
+            },
+            "inputs": [],
+            "label": "TBProfiler Resistance Variants",
+            "name": "Combine",
+            "outputs": [
+                {
+                    "name": "output",
+                    "type": "tabular"
+                }
+            ],
+            "position": {
+                "bottom": 632.1000061035156,
+                "height": 113.60000610351562,
+                "left": 1092,
+                "right": 1292,
+                "top": 518.5,
+                "width": 200,
+                "x": 1092,
+                "y": 518.5
+            },
+            "post_job_actions": {
+                "RenameDatasetActionoutput": {
+                    "action_arguments": {
+                        "newname": "tbprofiler_resistance_variants.tsv"
+                    },
+                    "action_type": "RenameDatasetAction",
+                    "output_name": "output"
+                }
+            },
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/nml/combine_tabular_collection/combine/0.1",
+            "tool_shed_repository": {
+                "changeset_revision": "b815081988b5",
+                "name": "combine_tabular_collection",
+                "owner": "nml",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"texts\": {\"__class__\": \"ConnectedValue\"}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "0.1",
+            "type": "tool",
+            "uuid": "a59042fa-499f-407a-bd5c-b75e8172c325",
+            "workflow_outputs": [
+                {
+                    "label": null,
+                    "output_name": "output",
+                    "uuid": "5fcd9545-2f88-4acd-a3ef-e010e64df03f"
+                }
+            ]
+        },
+        "16": {
+            "annotation": "",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/nml/combine_tabular_collection/combine/0.1",
+            "errors": null,
+            "id": 16,
+            "input_connections": {
+                "texts": {
+                    "id": 10,
+                    "output_name": "output"
+                }
+            },
+            "inputs": [],
+            "label": "TBProfiler Other Variants",
+            "name": "Combine",
+            "outputs": [
+                {
+                    "name": "output",
+                    "type": "tabular"
+                }
+            ],
+            "position": {
+                "bottom": 756.1000061035156,
+                "height": 113.60000610351562,
+                "left": 1091,
+                "right": 1291,
+                "top": 642.5,
+                "width": 200,
+                "x": 1091,
+                "y": 642.5
+            },
+            "post_job_actions": {
+                "RenameDatasetActionoutput": {
+                    "action_arguments": {
+                        "newname": "tbprofiler_other_variants.tsv"
+                    },
+                    "action_type": "RenameDatasetAction",
+                    "output_name": "output"
+                }
+            },
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/nml/combine_tabular_collection/combine/0.1",
+            "tool_shed_repository": {
+                "changeset_revision": "b815081988b5",
+                "name": "combine_tabular_collection",
+                "owner": "nml",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"texts\": {\"__class__\": \"ConnectedValue\"}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "0.1",
+            "type": "tool",
+            "uuid": "cbd8da44-3bc6-4154-8808-2c4031a892e1",
+            "workflow_outputs": [
+                {
+                    "label": null,
+                    "output_name": "output",
+                    "uuid": "90ce04a7-6b29-4c10-8854-434ed6c5dce6"
+                }
+            ]
+        },
+        "17": {
+            "annotation": "",
+            "content_id": "toolshed.g2.bx.psu.edu/repos/nml/combine_tabular_collection/combine/0.1",
+            "errors": null,
+            "id": 17,
+            "input_connections": {
+                "texts": {
+                    "id": 11,
+                    "output_name": "output"
+                }
+            },
+            "inputs": [],
+            "label": "TBProfiler Analysis Metadata",
+            "name": "Combine",
+            "outputs": [
+                {
+                    "name": "output",
+                    "type": "tabular"
+                }
+            ],
+            "position": {
+                "bottom": 884.6000061035156,
+                "height": 113.60000610351562,
+                "left": 1088,
+                "right": 1288,
+                "top": 771,
+                "width": 200,
+                "x": 1088,
+                "y": 771
+            },
+            "post_job_actions": {
+                "RenameDatasetActionoutput": {
+                    "action_arguments": {
+                        "newname": "tbprofiler_analysis_metadata.tsv"
+                    },
+                    "action_type": "RenameDatasetAction",
+                    "output_name": "output"
+                }
+            },
+            "tool_id": "toolshed.g2.bx.psu.edu/repos/nml/combine_tabular_collection/combine/0.1",
+            "tool_shed_repository": {
+                "changeset_revision": "b815081988b5",
+                "name": "combine_tabular_collection",
+                "owner": "nml",
+                "tool_shed": "toolshed.g2.bx.psu.edu"
+            },
+            "tool_state": "{\"texts\": {\"__class__\": \"ConnectedValue\"}, \"__page__\": null, \"__rerun_remap_job_id__\": null}",
+            "tool_version": "0.1",
+            "type": "tool",
+            "uuid": "800b8d72-584b-42e2-b6de-7316493dae36",
+            "workflow_outputs": [
+                {
+                    "label": null,
+                    "output_name": "output",
+                    "uuid": "a063ee2c-29a5-4eba-8346-a037786bb5f0"
+                }
+            ]
+        }
+    },
+    "tags": [],
+    "uuid": "d0f0e3d2-f004-4f1f-9e35-9c255369ecad",
+    "version": 1
+}
